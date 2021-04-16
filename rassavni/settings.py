@@ -1,6 +1,7 @@
 
 import os
 import django_heroku
+
 import dj_database_url
 from decouple import config
 
@@ -19,7 +20,7 @@ SECRET_KEY = 'django-insecure-d32#e8qcy4pd#oxtoo6onrm+^+5d2kbfiu-fcwyhy#iby3n9m=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0']
 
 
 # Application definition
@@ -77,7 +78,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+db_from_env=dj_database_url.config(conn_max_age=900)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
