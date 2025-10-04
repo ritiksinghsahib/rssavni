@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rssavni-deployment
+  labels:
+    app: rssavni
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rssavni
+  template:
+    metadata:
+      labels:
+        app: rssavni
+    spec:
+      containers:
+      - name: rssavni
+        image: your-dockerhub-username/rssavni:latest  # Replace with your image
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_NAME
+          value: rssavni
+        - name: DB_USER
+          value: rssuser
+        - name: DB_PASSWORD
+          value: rsspass
+        - name: DB_HOST
+          value: postgres
+        - name: DB_PORT
+          value: "5432"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "rssavni.settings"
+        - name: PYTHONUNBUFFERED
+          value: "1"
